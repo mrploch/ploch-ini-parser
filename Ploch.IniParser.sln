@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "repository", "repository", "{2F98F930-C937-4E87-A530-678D59E0FC11}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{747F6D5A-9415-49EA-A858-8C01968C324E}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		NuGet.config = NuGet.config
+		Ploch.IniParser.DotSettings = Ploch.IniParser.DotSettings
+		Ploch.IniParser.sln = Ploch.IniParser.sln
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ploch.IniParser", "src\IniParser\Ploch.IniParser.csproj", "{AF0A3F2A-CD05-4002-AA7C-B2A06BAE5A38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ploch.IniParser.Tests", "tests\IniParser.Tests\Ploch.IniParser.Tests.csproj", "{89CA8426-8E1A-4B3C-89C4-A9FC43A6994F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{747F6D5A-9415-49EA-A858-8C01968C324E} = {2F98F930-C937-4E87-A530-678D59E0FC11}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF0A3F2A-CD05-4002-AA7C-B2A06BAE5A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0A3F2A-CD05-4002-AA7C-B2A06BAE5A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0A3F2A-CD05-4002-AA7C-B2A06BAE5A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0A3F2A-CD05-4002-AA7C-B2A06BAE5A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89CA8426-8E1A-4B3C-89C4-A9FC43A6994F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89CA8426-8E1A-4B3C-89C4-A9FC43A6994F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89CA8426-8E1A-4B3C-89C4-A9FC43A6994F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89CA8426-8E1A-4B3C-89C4-A9FC43A6994F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

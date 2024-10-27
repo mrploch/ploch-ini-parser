@@ -1,0 +1,36 @@
+# global_option_1_above_comment
+global_option_1 = value1 # global_option_1_side_comment
+global_option_2 = value2
+
+# global_comment_above_section
+[*.ext1]
+# group1.option1 comment 1
+group1.option1 = value1 # group1.option1 comment 2
+group1.option2= value2
+group1.option3=value3
+
+# group2.option1_comment
+group2.option1 = value2.1
+
+group3.option1.severity = warning
+
+customkey_with_comment = true # Comment here
+
+[*.{ ext2,ext3,ext4}]
+section2_value1 = value1
+section2_value2 = value2
+section2_value3 = value3
+
+group1.option3 = should_not_override_section1
+group1.option2= value2
+
+customkey_with_comment = true # Comment here
+
+[*Tests.ext1]
+custom_test_setting1 = value1
+custom_test_setting2 = value2
+custom_test_setting3 = value3
+
+group1.option1 = should_override_section1_value1
+group1.option2 = should_override_section1_value2
+global_option_1 = should_override_global_value1
