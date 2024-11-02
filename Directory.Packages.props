@@ -28,4 +28,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </GlobalPackageReference>
     </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="Ploch.Common" Version="2.0.1"/>
+    </ItemGroup>
 </Project>
