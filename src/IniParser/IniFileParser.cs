@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
+using Ploch.Common.Collections;
 
 namespace Ploch.IniParser;
 
@@ -10,6 +12,25 @@ public static class IniFileParser
     private static readonly Regex SectionNameRegex = new(@"^\[(?<sectionName>.+)\]");
     private static readonly Regex EntryRegex = new(@"^(?<key>[^=]+)=(?<value>[^#]+)#?(?<comment>.*$)");
     private static readonly Regex CommentRegex = new(@"#\s*(?<comment>.+)");
+
+    /// <summary>
+    ///     Asynchronously parses an INI file from the provided stream and returns an IniFile object.
+    /// </summary>
+    /// <param name="stream">The stream containing the INI file to be parsed.</param>
+    /// <returns>
+    ///     A task that represents the asynchronous operation. The task result contains an IniFile object representing the
+    ///     parsed data.
+    /// </returns>
+    public static async Task<IniFile> ParseAsync(Stream stream)
+    {
+        var lines = new List<string>();
+        await foreach (var line in ReadLinesAsync(stream, Encoding.UTF8))
+        {
+            lines.Add(line);
+        }
+
+        return Parse(lines);
+    }
 
     /// <summary>
     ///     Parses a collection of strings representing lines of an INI file and converts them into an IniFile object.
@@ -30,7 +51,7 @@ public static class IniFileParser
                 continue;
             }
 
-            if (ProcessSection(out var section, line, currentComment))
+            if (ProcessSection(out var section, line, currentComment, iniFile))
             {
                 currentSection = section!;
                 SetSection(iniFile, section!);
@@ -49,14 +70,33 @@ public static class IniFileParser
         return iniFile;
     }
 
-    private static bool ProcessSection(out IniSection? section, string line, string? currentComment)
+    private static async IAsyncEnumerable<string> ReadLinesAsync(Stream stream,
+                                                                 Encoding encoding)
+    {
+        using var reader = new StreamReader(stream, encoding);
+
+        while (await reader.ReadLineAsync() is { } line)
+        {
+            yield return line;
+        }
+    }
+
+    private static bool ProcessSection(out IniSection? section, string line, string? currentComment, IniFile iniFile)
     {
         var match = SectionNameRegex.Match(line);
         if (match.Success)
         {
             var sectionName = match.Groups["sectionName"].Value.Trim();
             var comments = GetComments(line, currentComment);
-            section = new IniSection(sectionName, comments);
+
+            if (iniFile.Sections.TryGetValue(sectionName, out section))
+            {
+                section.SectionComments.AddMany(comments);
+            }
+            else
+            {
+                section = new IniSection(sectionName, comments);
+            }
 
             return true;
         }
