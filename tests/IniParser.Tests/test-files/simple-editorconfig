@@ -26,6 +26,13 @@ group1.option2= value2
 
 customkey_with_comment = true # Comment here
 
+duplicate_key = value1
+duplicate_key = overriden_value1
+
+[*.ext1]
+# Duplicate section extends the previous section
+group4.option1 = value4.1 # group4.option4.1 comment 1
+
 [*Tests.ext1]
 custom_test_setting1 = value1
 custom_test_setting2 = value2

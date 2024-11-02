@@ -21,7 +21,7 @@ public class IniSection(string name, IEnumerable<string>? sectionComments = null
     /// <summary>
     ///     Gets the optional comments associated with the INI section.
     /// </summary>
-    public IEnumerable<string> SectionComments { get; } = sectionComments?.ToArray() ?? [];
+    public ICollection<string> SectionComments { get; } = sectionComments?.ToArray() ?? [];
 
     /// <summary>
     ///     Gets the collection of entries contained in the INI section.

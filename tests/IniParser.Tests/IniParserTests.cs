@@ -3,29 +3,47 @@
 public class IniParserTests
 {
     [Fact]
-    public void Parse_can_parse_simple_data()
+    public void Parse_can_parse_simple_data_from_lines_collection()
     {
         var lines = File.ReadAllLines("test-files/simple-editorconfig");
         var iniFile = IniFileParser.Parse(lines);
 
+        TestParsingOfSimpleEditorConfigFile(iniFile);
+    }
+
+    [Fact]
+    public async Task Parse_can_parse_async_simple_data_from_stream()
+    {
+        using var fileStream = File.OpenRead("test-files/simple-editorconfig");
+
+        var iniFile = await IniFileParser.ParseAsync(fileStream);
+
+        TestParsingOfSimpleEditorConfigFile(iniFile);
+    }
+
+    private static void TestParsingOfSimpleEditorConfigFile(IniFile iniFile)
+    {
         var globalSection = iniFile.GlobalSection;
 
         ValidateSection(globalSection, string.Empty, 2, null, ["global_comment_above_section"]);
-
         ValidateEntry(globalSection.Entries.First().Value, "global_option_1", "value1", "global_option_1_above_comment", "global_option_1_side_comment");
         ValidateEntry(globalSection.Entries.Skip(1).First().Value, "global_option_2", "value2");
 
         iniFile.Sections.Should().HaveCount(3);
 
-        var iniSection = ValidateSection(iniFile, "*.ext1", 6, ["global_comment_above_section"], ["group1.option1 comment 1", "group2.option1_comment"]);
-
-        var entries = iniSection.Entries.Select(e => e.Value);
+        var firstSection = ValidateSection(iniFile, "*.ext1", 7, ["global_comment_above_section"], ["group1.option1 comment 1", "group2.option1_comment"]);
+        var entries = firstSection.Entries.Select(e => e.Value);
         ValidateEntry(entries.FirstOrDefault(), "group1.option1", "value1", "group1.option1 comment 1", "group1.option1 comment 2");
         ValidateEntry(entries.Skip(1).FirstOrDefault(), "group1.option2", "value2");
-        ValidateEntry(iniSection.Entries["group1.option3"], "group1.option3", "value3");
+        ValidateEntry(firstSection.Entries["group1.option3"], "group1.option3", "value3");
+        ValidateEntry(firstSection.Entries["group4.option1"], "group4.option1", "value4.1", "group4.option4.1 comment 1",
+                      "Duplicate section extends the previous section");
 
-        var secondSection = ValidateSection(iniFile, "*.{ ext2,ext3,ext4}", 6);
+        var secondSection = ValidateSection(iniFile, "*.{ ext2,ext3,ext4}", 7);
         ValidateEntry(secondSection.Entries["customkey_with_comment"], "customkey_with_comment", "true", "Comment here");
+        secondSection.DuplicateEntries.Should().HaveCount(1);
+        ValidateEntry(secondSection.DuplicateEntries.First(), "duplicate_key", "value1");
+        ValidateEntry(secondSection.Entries["duplicate_key"], "duplicate_key", "overriden_value1");
     }
 
     [Fact]
