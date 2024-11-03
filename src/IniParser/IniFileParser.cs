@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
-using Ploch.Common.Collections;
 
 namespace Ploch.IniParser;
 
@@ -91,7 +90,10 @@ public static class IniFileParser
 
             if (iniFile.Sections.TryGetValue(sectionName, out section))
             {
-                section.SectionComments.AddMany(comments);
+                foreach (var comment in comments)
+                {
+                    section.SectionComments.Add(comment);
+                }
             }
             else
             {

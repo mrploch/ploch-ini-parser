@@ -4,10 +4,20 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>Ploch INI File Parsing Library</Title>
+        <!--        <PackageIcon>./parsing.png</PackageIcon>-->
+        <PackageTags>ini;ini-parser;parser</PackageTags>
+        <PackageProjectUrl>https://github.com/mrploch/ploch-ini-parser</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <NoWarn>1701;1702,SA1516</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ploch.Common"/>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+        <None Remove="Ploch.IniParser.xml"/>
     </ItemGroup>
 
 </Project>
