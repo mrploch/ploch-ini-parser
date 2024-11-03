@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "repository", "repository", "{2F98F930-C937-4E87-A530-678D59E0FC11}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		parsing.png = parsing.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{747F6D5A-9415-49EA-A858-8C01968C324E}"
