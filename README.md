@@ -2,8 +2,7 @@
 
 ## Overview
 
-![parsing.png](parsing.png)
-**Ploch.IniParser** is a library for reading and parsing INI files in .NET.
+<img src="parsing.png" alt="parser" width="200"/> **Ploch.IniParser** is a library for reading and parsing INI files in .NET.
 
 ## Usage
 
