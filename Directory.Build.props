@@ -16,6 +16,7 @@
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <VersionPrefix>1.0.0</VersionPrefix>
         <BuildNumber>$([System.DateTime]::UtcNow.ToString("yyMMddHHmm"))</BuildNumber>
+        <!--<RELEASEVERSION>true</RELEASEVERSION>-->
 
         <!-- Development versions -->
         <VersionSuffix Condition="'$(RELEASEVERSION)' != 'true'">-prerelease</VersionSuffix>
@@ -27,6 +28,7 @@
         <FileVersion>$(InformationalVersion)</FileVersion>
         <AssemblyVersion>$(VersionPrefix).0</AssemblyVersion>
         <IsTestProject>$(MSBuildProjectName.EndsWith('Tests'))</IsTestProject>
+
     </PropertyGroup>
 
     <PropertyGroup Label="ProjectType">

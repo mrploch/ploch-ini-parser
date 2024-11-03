@@ -16,7 +16,7 @@ tab_width = 4
 
 # New line preferences
 end_of_line = crlf
-insert_final_newline = true
+insert_final_newline = false
 
 #### .NET Coding Conventions ####
 
@@ -248,11 +248,7 @@ dotnet_diagnostic.sa1623.severity = none
 dotnet_diagnostic.sa1633.severity = none
 dotnet_diagnostic.sa1640.severity = none
 dotnet_diagnostic.sa1649.severity = warning # File name should match first type name.
-dotnet_diagnostic.sa1010.severity = none # Opening square brackets should be spaced correctly - gives false positives for collection initializers
-dotnet_diagnostic.sa1313.severity = none # Parameter names should begin with lower-case letter - gives false positives for records
-dotnet_diagnostic.sa1516.severity = none # Elements should be separated by blank line - gives false positives
 dotnet_diagnostic.nu1507.severity = none
-
 
 # ReSharper properties
 resharper_blank_lines_around_single_line_auto_property = 1
@@ -331,3 +327,8 @@ dotnet_diagnostic.s4487.severity = none
 
 resharper_possible_multiple_enumeration_highlighting = none
 resharper_lambda_expression_can_be_made_static_highlighting = none
+
+[*.cs]
+
+# RCS1169: Make field read-only.
+key-in-the-duplicate-cs-section = some-value
