@@ -21,6 +21,30 @@ public class IniParserTests
         TestParsingOfSimpleEditorConfigFile(iniFile);
     }
 
+    [Fact]
+    public async Task Parse_should_be_able_to_parse_contents_provided_in_string()
+    {
+        var text = await File.ReadAllTextAsync("test-files/simple-editorconfig");
+
+#pragma warning disable S6966 // "async" methods should be used - we're testing the synchronous method here
+#pragma warning disable VSTHRD103
+
+        // ReSharper disable once MethodHasAsyncOverload
+        var iniFile = IniFileParser.Parse(text);
+#pragma warning restore VSTHRD103
+#pragma warning restore S6966
+
+        TestParsingOfSimpleEditorConfigFile(iniFile);
+    }
+
+    [Fact]
+    public async Task ParseAsync_should_be_able_to_parse_file_using_provided_file_path()
+    {
+        var iniFile = await IniFileParser.ParseAsync("test-files/simple-editorconfig");
+
+        TestParsingOfSimpleEditorConfigFile(iniFile);
+    }
+
     private static void TestParsingOfSimpleEditorConfigFile(IniFile iniFile)
     {
         var globalSection = iniFile.GlobalSection;

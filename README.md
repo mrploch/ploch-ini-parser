@@ -1,12 +1,23 @@
-# <img src="./images/parsing.png" alt="parser" width="60"/> .NET Ini File Parser
+# Ploch INI Parser Library
 
 ## Overview
 
-**Ploch.IniParser** is a library for reading and parsing INI files in .NET.
+**Ploch.IniParser** is a small library for reading and parsing INI files in .NET.
+
+It is implemented using .NET Standard 2.0, so it can be used in any .NET project that supports .NET Standard 2.0.
+Besides handling of INI files, tt can be also used to parse the `.editorconfig` files, which are in the INI format.
+
+## Features
+
+- .NET Standard 2.0 library
+- Parsing of INI files section
+- Handling of comments in the INI file for both sections and entries
+- Detection of duplicate sections and entries
 
 ## Usage
 
-For a full sample see the [sample project](./blob/main/samples/IniParserExample/Program.cs).
+For a full sample see
+the [sample project](https://github.com/mrploch/ploch-ini-parser/tree/main/samples/IniParserExample/Program.cs).
 
 ```csharp
 var fileLines = await File.ReadAllLinesAsync(filePath);
@@ -98,12 +109,13 @@ var iniFile = await IniFileParser.ParseAsync(stream);
 ### Comments Handling
 
 Comments that are immediately before a section are stored in the [
-`IniSection.SectionComments`](./blob/main/src/IniParser/IniSection.cs#L24) property.
+[`IniSection.SectionComments`](https://github.com/mrploch/ploch-ini-parser/tree/main/src/IniParser/IniSection.cs#L24)
+property.
 Those comments are assumed to be directly refering to the section.
 
 All comments within a section are also stored in the [
-`IniSection.Comments`](./blob/main/src/IniParser/IniSection.cs#L19) property.
+[`IniSection.Comments`](https://github.com/mrploch/ploch-ini-parser/tree/main/src/IniParser/IniSection.cs#L19) property.
 
 Comments for an entry (which are either on the same line as the entry, or are immediately above the entry) are stored in
 the
-`[KeyData.Comments](./blob/main/src/IniParser/KeyData.cs#L9)` property.
+[`KeyData.Comments`](https://github.com/mrploch/ploch-ini-parser/tree/main/src/IniParser/KeyData.cs#L9) property.

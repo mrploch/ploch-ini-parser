@@ -13,6 +13,21 @@ public static class IniFileParser
     private static readonly Regex CommentRegex = new(@"#\s*(?<comment>.+)");
 
     /// <summary>
+    ///     Asynchronously parses an INI file from the provided file path and returns an IniFile object.
+    /// </summary>
+    /// <param name="filePath">The path to the INI file to be parsed.</param>
+    /// <returns>
+    ///     A task that represents the asynchronous operation. The task result contains an IniFile object representing the
+    ///     parsed data.
+    /// </returns>
+    public static async Task<IniFile> ParseAsync(string filePath)
+    {
+        using var fileStream = File.OpenRead(filePath);
+
+        return await ParseAsync(fileStream);
+    }
+
+    /// <summary>
     ///     Asynchronously parses an INI file from the provided stream and returns an IniFile object.
     /// </summary>
     /// <param name="stream">The stream containing the INI file to be parsed.</param>
@@ -22,13 +37,18 @@ public static class IniFileParser
     /// </returns>
     public static async Task<IniFile> ParseAsync(Stream stream)
     {
-        var lines = new List<string>();
-        await foreach (var line in ReadLinesAsync(stream, Encoding.UTF8))
-        {
-            lines.Add(line);
-        }
-
+        var lines = await ReadLinesAsync(stream, Encoding.UTF8);
         return Parse(lines);
+    }
+
+    /// <summary>
+    ///     Parses a string containing INI file contents and converts it into an IniFile object.
+    /// </summary>
+    /// <param name="contents">The string representation of the INI file contents.</param>
+    /// <returns>An IniFile object containing the data parsed from the provided string contents.</returns>
+    public static IniFile Parse(string contents)
+    {
+        return Parse(contents.Split('\n'));
     }
 
     /// <summary>
@@ -69,15 +89,17 @@ public static class IniFileParser
         return iniFile;
     }
 
-    private static async IAsyncEnumerable<string> ReadLinesAsync(Stream stream,
-                                                                 Encoding encoding)
+    private static async Task<IEnumerable<string>> ReadLinesAsync(Stream stream, Encoding encoding)
     {
         using var reader = new StreamReader(stream, encoding);
 
+        var lines = new List<string>();
         while (await reader.ReadLineAsync() is { } line)
         {
-            yield return line;
+            lines.Add(line);
         }
+
+        return lines;
     }
 
     private static bool ProcessSection(out IniSection? section, string line, string? currentComment, IniFile iniFile)
@@ -143,7 +165,7 @@ public static class IniFileParser
         string? comment = null;
         if (match.Success)
         {
-            comment = match.Groups["comment"].Value;
+            comment = match.Groups["comment"].Value.Trim();
             if (!currentSection.SectionComments.Contains(comment, StringComparer.InvariantCulture))
             {
                 currentSection.Comments.Add(comment);
@@ -175,7 +197,7 @@ public static class IniFileParser
         var match = CommentRegex.Match(line);
         if (match.Success)
         {
-            comment = match.Groups["comment"].Value;
+            comment = match.Groups["comment"].Value.Trim();
             return true;
         }
 

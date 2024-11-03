@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Title>Ploch INI File Parsing Library</Title>
+        <Title>INI File Parsing Library</Title>
         <!--        <PackageIcon>./parsing.png</PackageIcon>-->
-        <PackageTags>ini;ini-parser;parser</PackageTags>
+        <PackageTags>ini;ini-parser;parser;editorconfig;IniParser</PackageTags>
         <PackageProjectUrl>https://github.com/mrploch/ploch-ini-parser</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIconUrl>./parsing.png</PackageIconUrl>
+        <PackageIcon>parsing.png</PackageIcon>
+        <TargetFrameworks>net8.0;netstandard2.0</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
