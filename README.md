@@ -92,14 +92,29 @@ foreach (var section in duplicateSections)
 
 ### Reading of INI files
 
-Files can be read by providing file lines:
+There is a few methods for loading of the INI contents.
+
+File can be read by providing a file path:
+
+```csharp
+var iniFile = await IniFileParser.ParseAsync("my-ini-file.ini");
+```
+
+Using a string contents of the file:
+
+```csharp
+var text = await File.ReadAllTextAsync("my-ini-file.ini");
+var iniFile = IniFileParser.Parse(text);
+```
+
+Using file lines:
 
 ```csharp
 var lines = await File.ReadAllLinesAsync(filePath)`
 var iniFile = IniFileParser.Parse(lines);
 ```
 
-... or using a stream, for example:
+Using a stream, for example:
 
 ```csharp
 using var stream = File.OpenRead(filePath);
