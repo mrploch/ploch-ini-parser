@@ -7,6 +7,6 @@
         <description>A simple INI file type parser library for .NET</description>
         <authors>Kris Ploch</authors>
         <license type="Apache-2.0">LICENSE</license>
-        <icon>parsing.png</icon>
+        <icon>./parsing.png</icon>
     </metadata>
 </package>

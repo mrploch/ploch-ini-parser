@@ -1,8 +1,8 @@
-# .NET Ini File Parser
+# <img src="./images/parsing.png" alt="parser" width="60"/> .NET Ini File Parser
 
 ## Overview
 
-<img src="parsing.png" alt="parser" width="200"/> **Ploch.IniParser** is a library for reading and parsing INI files in .NET.
+**Ploch.IniParser** is a library for reading and parsing INI files in .NET.
 
 ## Usage
 
