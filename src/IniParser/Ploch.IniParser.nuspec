@@ -4,7 +4,7 @@
         <!-- Required elements-->
         <id>Ploch.IniParser</id>
         <version>1.0.0</version>
-        <description>A simple INI file type parser library for .NET</description>
+        <description>.NET Standard .INI file parser library.</description>
         <authors>Kris Ploch</authors>
         <license type="Apache-2.0">LICENSE</license>
         <icon>./parsing.png</icon>
