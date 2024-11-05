@@ -22,8 +22,11 @@ public static class IniFileParser
     /// </returns>
     public static async Task<IniFile> ParseAsync(string filePath)
     {
+#if NET8_0_OR_GREATER
+        await using var fileStream = File.OpenRead(filePath);
+#else
         using var fileStream = File.OpenRead(filePath);
-
+#endif
         return await ParseAsync(fileStream);
     }
 
